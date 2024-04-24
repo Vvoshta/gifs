@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetTrendingGifsQuery } from '../../store/reducers/apiSlice';
+import { useGetTrendingGifsQuery } from '../../store/api/gif';
 import { Grid, Box } from '@mui/material';
 import * as S from './style';
 
