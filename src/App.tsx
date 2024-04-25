@@ -6,7 +6,7 @@ import {
     StyledButton
 } from './components/Buttons/Buttons';
 import { Stack } from '@mui/material';
-import TrendsPage from './components/TrendsPage/TrendsPage';
+import { TrendsPage } from './pages';
 
 function App() {
     return (

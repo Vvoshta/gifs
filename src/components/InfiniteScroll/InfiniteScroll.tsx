@@ -2,9 +2,11 @@ import React, { useRef, useEffect } from 'react';
 
 const InfiniteScroll: React.FC<{
     children: React.ReactNode;
-    fetchMore: () => void;
+    isPageLoading: boolean;
     hasMore: boolean;
-}> = ({ children, fetchMore, hasMore }) => {
+    loadMore: () => void;
+    threshold: number;
+}> = ({ children, hasMore, loadMore, threshold }) => {
     const sentinelRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -12,11 +14,11 @@ const InfiniteScroll: React.FC<{
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting && hasMore) {
-                        fetchMore();
+                        loadMore();
                     }
                 });
             },
-            { rootMargin: '20px' }
+            { rootMargin: '20px', threshold }
         );
 
         if (sentinelRef.current) {
@@ -28,7 +30,7 @@ const InfiniteScroll: React.FC<{
                 observer.unobserve(sentinelRef.current);
             }
         };
-    }, [fetchMore]);
+    }, [loadMore]);
 
     return (
         <div>
