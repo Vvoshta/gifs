@@ -1,10 +1,6 @@
 import React from 'react';
 import { SxProps } from '@mui/material';
 
-export const StyledBox: SxProps = {
-    marginTop: '40px'
-};
-
 export const StyledBoxItem: SxProps = {
     height: '250px'
 };
