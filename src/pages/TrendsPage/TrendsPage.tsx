@@ -27,22 +27,6 @@ const TrendsPage: React.FC = () => {
         }
     }, [newTrendingGifs]);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const { scrollTop, scrollHeight, clientHeight } =
-                document.documentElement;
-
-            if (scrollTop + clientHeight >= scrollHeight - 50) {
-                setCurrentPostStart((prev) => prev + 9); // Загружаем следующие 9 элементов
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.toString()}</div>;
 
