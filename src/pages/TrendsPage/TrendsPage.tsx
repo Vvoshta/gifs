@@ -3,6 +3,7 @@ import { useGetTrendingGifsQuery } from '../../store/api/gif';
 import { StyledBox } from './style';
 import { Box, Grid } from '@mui/material';
 import { IGif } from '../../types/gif';
+import GifItem from '../../components/GifItem/GifItem';
 import InfiniteScroll from '../../components/InfiniteScroll/InfiniteScroll';
 
 const TrendsPage: React.FC = () => {

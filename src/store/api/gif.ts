@@ -14,8 +14,7 @@ export const giphyApi = createApi({
                     _start: start
                 }
             }),
-            transformResponse: (response: { data: any }, meta, arg) =>
-                response.data
+            transformResponse: (response: { data: IGif[] }) => response.data
         })
     })
 });
