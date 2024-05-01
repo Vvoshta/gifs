@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid } from '@mui/material';
 import { StyledBoxItem, StyledImg } from './style';
-import { IGif } from '../../types';
+import { IGif } from '../../types/gif';
 
 interface GifItemProps {
     gifs: IGif[];
