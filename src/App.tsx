@@ -6,7 +6,7 @@ import {
     StyledButton
 } from './components/Buttons/Buttons';
 import { Stack } from '@mui/material';
-import { TrendsPage } from './pages';
+import { SearchPage, TrendsPage } from './pages';
 
 function App() {
     return (
@@ -28,6 +28,7 @@ function App() {
                 </Link>
             </Stack>
             <Stack>
+                <SearchPage />
                 <TrendsPage />
             </Stack>
         </div>
