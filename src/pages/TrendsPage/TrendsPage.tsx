@@ -3,7 +3,7 @@ import { useGetTrendingGifsQuery } from '../../store/api/gif';
 import { StyledBox } from './style';
 import { Box, Grid } from '@mui/material';
 import { IGif } from '../../types/gif';
-import { StyledBoxItem, StyledImg } from '../../components/GifItem/style';
+import InfiniteScroll from '../../components/InfiniteScroll/InfiniteScroll';
 
 const TrendsPage: React.FC = () => {
     const [currentPostStart, setCurrentPostStart] = useState(0);
@@ -27,24 +27,24 @@ const TrendsPage: React.FC = () => {
         }
     }, [newTrendingGifs]);
 
+    const loadMore = () => {
+        setCurrentPostStart((prev) => prev + 9);
+    };
+
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.toString()}</div>;
 
     return (
         <Box sx={StyledBox}>
             <Grid container spacing={2}>
-                {trendingGifs &&
-                    trendingGifs.map((gif: IGif) => (
-                        <Grid item xs={4} key={gif.id}>
-                            <Box sx={StyledBoxItem}>
-                                <img
-                                    style={StyledImg}
-                                    src={gif.images.fixed_height.url}
-                                    alt={gif.title}
-                                />
-                            </Box>
-                        </Grid>
-                    ))}
+                <InfiniteScroll onLoadMore={loadMore}>
+                    <Grid container spacing={2}>
+                        {trendingGifs &&
+                            trendingGifs.map((gif: IGif) => (
+                                <GifItem key={gif.id} gif={gif} />
+                            ))}
+                    </Grid>
+                </InfiniteScroll>
             </Grid>
         </Box>
     );
