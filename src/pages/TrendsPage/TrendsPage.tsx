@@ -8,7 +8,7 @@ import InfiniteScroll from '../../components/InfiniteScroll/InfiniteScroll';
 
 const TrendsPage: React.FC = () => {
     const [currentPostStart, setCurrentPostStart] = useState(0);
-    const [trendingGifs, setTrendingGifs] = useState<IGif[]>([]);
+    // const [trendingGifs, setTrendingGifs] = useState<IGif[]>([]);
 
     const {
         data: newTrendingGifs,
@@ -16,18 +16,17 @@ const TrendsPage: React.FC = () => {
         isLoading
     } = useGetTrendingGifsQuery({
         limit: 9,
-        start: currentPostStart
+        offset: currentPostStart
     });
 
-    useEffect(() => {
-        if (newTrendingGifs) {
-            setTrendingGifs((prevTrendingGifs: IGif[]) => [
-                ...prevTrendingGifs,
-                ...newTrendingGifs
-            ]);
-        }
-    }, [newTrendingGifs]);
-
+    // useEffect(() => {
+    //     if (newTrendingGifs) {
+    //         setTrendingGifs((prevTrendingGifs: IGif[]) => [
+    //             ...prevTrendingGifs,
+    //             ...newTrendingGifs
+    //         ]);
+    //     }
+    // }, [newTrendingGifs]);
     const loadMore = () => {
         setCurrentPostStart((prev) => prev + 9);
     };
@@ -40,8 +39,8 @@ const TrendsPage: React.FC = () => {
             <Grid container spacing={2}>
                 <InfiniteScroll onLoadMore={loadMore}>
                     <Grid container spacing={2}>
-                        {trendingGifs &&
-                            trendingGifs.map((gif: IGif) => (
+                        {newTrendingGifs &&
+                            newTrendingGifs.map((gif: IGif) => (
                                 <GifItem key={gif.id} gif={gif} />
                             ))}
                     </Grid>
