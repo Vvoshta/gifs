@@ -3,6 +3,7 @@ import { TextField } from '@mui/material';
 import { StyledTextField } from './style';
 import { IGif } from '../../types/gif';
 import { useGetSearchedGifsQuery } from '../../store/api/gif';
+import InfiniteScroll from '../../components/InfiniteScroll/InfiniteScroll';
 
 const SearchPage: React.FC = () => {
     const [searchString, setSearchString] = useState('');
@@ -28,21 +29,9 @@ const SearchPage: React.FC = () => {
         }
     }, [newSearchedGifs]);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const { scrollTop, scrollHeight, clientHeight } =
-                document.documentElement;
-
-            if (scrollTop + clientHeight >= scrollHeight - 50) {
-                setCurrentPostStart((prev) => prev + 9); // Загружаем следующие 9 элементов
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    const loadMore = () => {
+        setCurrentPostStart((prev) => prev + 9);
+    };
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.toString()}</div>;
@@ -54,11 +43,13 @@ const SearchPage: React.FC = () => {
 
     return (
         <div>
-            <TextField
-                sx={StyledTextField}
-                value={searchString}
-                onChange={handleChange}
-            />
+            <InfiniteScroll onLoadMore={loadMore}>
+                <TextField
+                    sx={StyledTextField}
+                    value={searchString}
+                    onChange={handleChange}
+                />
+            </InfiniteScroll>
         </div>
     );
 };
