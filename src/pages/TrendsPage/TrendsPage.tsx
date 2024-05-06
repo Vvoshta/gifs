@@ -1,37 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { useGetTrendingGifsQuery } from '../../store/api/gif';
+import React, { useState } from 'react';
+import { useGetTrendingGifsQuery } from '../../store/api';
 import { StyledBox } from './style';
 import { Box, Grid } from '@mui/material';
-import { IGif } from '../../types/gif';
-import GifItem from '../../components/GifItem/GifItem';
-import InfiniteScroll from '../../components/InfiniteScroll/InfiniteScroll';
+import { IGif } from '../../types';
+import { GifItem, InfiniteScroll } from '../../components';
 
 const TrendsPage: React.FC = () => {
-    const [currentPostStart, setCurrentPostStart] = useState(0);
-    // const [trendingGifs, setTrendingGifs] = useState<IGif[]>([]);
-
+    const limit = 9;
+    const [offset, setOffset] = useState(0);
     const {
-        data: newTrendingGifs,
+        data: trendingGifs,
         error,
-        isLoading
+        isLoading,
+        isFetching
     } = useGetTrendingGifsQuery({
-        limit: 9,
-        offset: currentPostStart
+        limit,
+        offset
     });
 
-    // useEffect(() => {
-    //     if (newTrendingGifs) {
-    //         setTrendingGifs((prevTrendingGifs: IGif[]) => [
-    //             ...prevTrendingGifs,
-    //             ...newTrendingGifs
-    //         ]);
-    //     }
-    // }, [newTrendingGifs]);
     const loadMore = () => {
-        setCurrentPostStart((prev) => prev + 9);
+        setOffset(offset + limit);
     };
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading && !trendingGifs) return <div>Loading...</div>;
     if (error) return <div>Error: {error.toString()}</div>;
 
     return (
@@ -39,10 +30,11 @@ const TrendsPage: React.FC = () => {
             <Grid container spacing={2}>
                 <InfiniteScroll onLoadMore={loadMore}>
                     <Grid container spacing={2}>
-                        {newTrendingGifs &&
-                            newTrendingGifs.map((gif: IGif) => (
+                        {trendingGifs &&
+                            trendingGifs.map((gif: IGif) => (
                                 <GifItem key={gif.id} gif={gif} />
                             ))}
+                        {isFetching && <div>Loading more...</div>}
                     </Grid>
                 </InfiniteScroll>
             </Grid>

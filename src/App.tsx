@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
-import { Buttons } from './components/Buttons/Buttons';
-import { Stack, Button } from '@mui/material';
+import { Buttons } from './components';
+import { Stack } from '@mui/material';
 import { TrendsPage } from './pages';
 
 function App() {

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { giphyApi } from './store/api/gif';
+import { giphyApi } from './store/api';
 
 export const store = configureStore({
     reducer: {

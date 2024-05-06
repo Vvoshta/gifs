@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { GIPHY_KEY } from '../../consts/main';
-import { IGif } from '../../types/gif';
+import { IGif } from '../../types';
 
 export const giphyApi = createApi({
     reducerPath: 'giphyApi',
@@ -12,12 +12,15 @@ export const giphyApi = createApi({
                     url: `/trending?api_key=${GIPHY_KEY}&limit=${limit}&offset=${offset}`,
                     params: {
                         _limit: limit,
-                        offset: offset
+                        _start: offset
                     }
                 }),
                 transformResponse: (response: { data: IGif[] }) =>
                     response.data,
-                merge: (existingData, newData) => [...existingData, ...newData]
+                merge: (existingData = [], newData) => [
+                    ...existingData,
+                    ...newData
+                ]
             }
         )
     })

@@ -1,23 +1,30 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-import React from 'react';
+import { StyledButton, SettingsStyledButton } from './style';
 
 const Buttons: React.FC = () => {
     return (
         <>
             <Link to="/">
-                <Button sx={} href="">
+                <Button sx={StyledButton} href="">
                     Trends
                 </Button>
             </Link>
             <Link to="/search">
-                <Button href="">Search</Button>
+                <Button sx={StyledButton} href="">
+                    Search
+                </Button>
             </Link>
             <Link to="/random">
-                <Button href="">Random</Button>
+                <Button sx={StyledButton} href="">
+                    Random
+                </Button>
             </Link>
             <Link to="/settings">
-                <Button href="">Settings</Button>
+                <Button sx={SettingsStyledButton} href="">
+                    Settings
+                </Button>
             </Link>
         </>
     );
