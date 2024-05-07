@@ -8,7 +8,7 @@ export const giphyApi = createApi({
     endpoints: (build) => ({
         getTrendingGifs: build.query<IGif[], { limit: number; offset: number }>(
             {
-                query: ({ limit = 9, offset = 0 }) => ({
+                query: ({ limit, offset }) => ({
                     url: `/trending?api_key=${GIPHY_KEY}&limit=${limit}&offset=${offset}`,
                     params: {
                         _limit: limit,
@@ -20,7 +20,14 @@ export const giphyApi = createApi({
                 merge: (existingData = [], newData) => [
                     ...existingData,
                     ...newData
-                ]
+                ],
+                serializeQueryArgs: ({
+                    // queryArgs,
+                    // endpointDefinition,
+                    endpointName
+                }) => {
+                    return endpointName;
+                }
             }
         )
     })

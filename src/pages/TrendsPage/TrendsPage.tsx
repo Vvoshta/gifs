@@ -10,13 +10,15 @@ const TrendsPage: React.FC = () => {
     const [offset, setOffset] = useState(0);
     const {
         data: trendingGifs,
-        error,
         isLoading,
+        error,
         isFetching
-    } = useGetTrendingGifsQuery({
-        limit,
-        offset
-    });
+    } = useGetTrendingGifsQuery(
+        { limit, offset },
+        {
+            refetchOnMountOrArgChange: true
+        }
+    );
 
     const loadMore = () => {
         setOffset(offset + limit);
