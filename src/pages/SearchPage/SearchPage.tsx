@@ -1,54 +1,56 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+// todo нужно сделать так, чтобы при 2ом и дальше вводе в строку обновлялись гифки
+
+import React, { ChangeEvent, useState, useEffect } from 'react';
 import { TextField } from '@mui/material';
 import { StyledTextField } from './style';
-import { IGif } from '../../types/gif';
-import { useGetSearchedGifsQuery } from '../../store/api/gif';
+import { useGetSearchedGifsQuery } from '../../store/api';
 import InfiniteScroll from '../../components/InfiniteScroll/InfiniteScroll';
+import { GifItem } from '../../components';
+import { useDebounce } from '../../hooks';
 
 const SearchPage: React.FC = () => {
-    const [searchString, setSearchString] = useState('');
-    const [currentPostStart, setCurrentPostStart] = useState(0);
-    const [trendingGifs, setTrendingGifs] = useState<IGif[]>([]);
+    const [searchStr, setSearchStr] = useState('');
+    const limit = 9;
+    const [offset, setOffset] = useState(9);
+
+    const debouncedSearch = useDebounce(searchStr, 500);
 
     const {
-        data: newSearchedGifs,
+        data: searchedGifs = [],
         error,
         isLoading
-    } = useGetSearchedGifsQuery({
-        searchString,
-        limit: 9,
-        start: currentPostStart
-    });
-
-    useEffect(() => {
-        if (newSearchedGifs) {
-            setTrendingGifs((prevTrendingGifs: IGif[]) => [
-                ...prevTrendingGifs,
-                ...newSearchedGifs
-            ]);
+    } = useGetSearchedGifsQuery(
+        { searchStr: debouncedSearch, limit, offset },
+        {
+            refetchOnMountOrArgChange: true
         }
-    }, [newSearchedGifs]);
+    );
 
     const loadMore = () => {
-        setCurrentPostStart((prev) => prev + 9);
+        setOffset(offset + limit);
     };
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error.toString()}</div>;
+    useEffect(() => {
+        setOffset(0);
+    }, [debouncedSearch]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        setSearchString(value);
+        setSearchStr(value);
     };
+
+    if (isLoading && !searchedGifs) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.toString()}</div>;
 
     return (
         <div>
+            <TextField
+                sx={StyledTextField}
+                value={searchStr}
+                onChange={handleChange}
+            />
             <InfiniteScroll onLoadMore={loadMore}>
-                <TextField
-                    sx={StyledTextField}
-                    value={searchString}
-                    onChange={handleChange}
-                />
+                <GifItem gifs={searchedGifs} />
             </InfiniteScroll>
         </div>
     );

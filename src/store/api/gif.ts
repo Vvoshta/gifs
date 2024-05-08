@@ -32,20 +32,30 @@ export const giphyApi = createApi({
         ),
         getSearchedGifs: build.query<
             IGif[],
-            { searchString: string; limit: number; start: number }
+            { searchStr: string; limit: number; offset: number }
         >({
-            query: ({ searchString, limit = 0, start = 0 }) => ({
-                url: `/search?api_key=${GIPHY_KEY}&q=${searchString}&limit=${limit}&offset=${start}`,
+            query: ({ searchStr, limit = 0, offset = 0 }) => ({
+                url: `/search?api_key=${GIPHY_KEY}&q=${searchStr}&limit=${limit}&offset=${offset}`,
                 params: {
-                    q: searchString,
+                    q: searchStr,
                     _limit: limit,
-                    _start: start
+                    _start: offset
                 }
             }),
-            transformResponse: (response: { data: any }, meta, arg) =>
-                response.data
+            transformResponse: (response: { data: IGif[] }) => response.data,
+            merge: (existingData = [], newData) => [
+                ...existingData,
+                ...newData
+            ],
+            serializeQueryArgs: ({
+                // queryArgs,
+                // endpointDefinition,
+                endpointName
+            }) => {
+                return endpointName;
+            }
         })
     })
 });
 
-export const { useGetTrendingGifsQuery } = giphyApi;
+export const { useGetTrendingGifsQuery, useGetSearchedGifsQuery } = giphyApi;

@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { useGetTrendingGifsQuery } from '../../store/api';
 import { StyledBox } from './style';
 import { Box, Grid } from '@mui/material';
-import { IGif } from '../../types';
 import { GifItem, InfiniteScroll } from '../../components';
 
 const TrendsPage: React.FC = () => {
     const limit = 9;
     const [offset, setOffset] = useState(0);
     const {
-        data: trendingGifs,
+        data: trendingGifs = [],
         isLoading,
         error,
         isFetching
@@ -31,13 +30,8 @@ const TrendsPage: React.FC = () => {
         <Box sx={StyledBox}>
             <Grid container spacing={2}>
                 <InfiniteScroll onLoadMore={loadMore}>
-                    <Grid container spacing={2}>
-                        {trendingGifs &&
-                            trendingGifs.map((gif: IGif) => (
-                                <GifItem key={gif.id} gif={gif} />
-                            ))}
-                        {isFetching && <div>Loading more...</div>}
-                    </Grid>
+                    <GifItem gifs={trendingGifs} />
+                    {isFetching && <div>Loading more...</div>}
                 </InfiniteScroll>
             </Grid>
         </Box>
