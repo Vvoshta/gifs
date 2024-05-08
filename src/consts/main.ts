@@ -1,2 +1,1 @@
-// export const GIPHY_KEY = 'wEkBqUdBDM1U3ebfspVZWq4KXnH1ElwO'; // vvoshta
-export const GIPHY_KEY = 'IgNoYbVZy05tOQQCSuXsVFfGj3Wfl37E';
+export const GIPHY_KEY = 'phIIaX4oA3X3ydGSRL0oBiN8x8uBNrkW';

@@ -11,7 +11,7 @@ const InfiniteScroll: React.FC<Props> = ({ onLoadMore, children }) => {
             const { scrollTop, scrollHeight, clientHeight } =
                 document.documentElement;
 
-            if (scrollTop + clientHeight >= scrollHeight - 50) {
+            if (scrollTop + clientHeight >= scrollHeight - 50 && children) {
                 onLoadMore();
             }
         };
@@ -21,7 +21,7 @@ const InfiniteScroll: React.FC<Props> = ({ onLoadMore, children }) => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [onLoadMore]);
+    }, [onLoadMore, children]);
 
     return <>{children}</>;
 };
