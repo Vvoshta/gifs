@@ -1,6 +1,6 @@
 // todo нужно сделать так, чтобы при 2ом и дальше вводе в строку обновлялись гифки
 
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, { ChangeEvent, useState, useEffect, useCallback } from 'react';
 import { TextField } from '@mui/material';
 import { StyledTextField } from './style';
 import { useGetSearchedGifsQuery } from '../../store/api';
@@ -11,7 +11,7 @@ import { useDebounce } from '../../hooks';
 const SearchPage: React.FC = () => {
     const [searchStr, setSearchStr] = useState('');
     const limit = 9;
-    const [offset, setOffset] = useState(9);
+    const [offset, setOffset] = useState(0);
 
     const debouncedSearch = useDebounce(searchStr, 500);
 
@@ -26,18 +26,18 @@ const SearchPage: React.FC = () => {
         }
     );
 
-    const loadMore = () => {
-        setOffset(offset + limit);
-    };
-
-    useEffect(() => {
-        setOffset(0);
-    }, [debouncedSearch]);
-
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setSearchStr(value);
     };
+
+    const loadMore = useCallback(() => {
+        setOffset((prev) => prev + limit);
+    }, [limit]);
+
+    useEffect(() => {
+        setOffset(0);
+    }, [debouncedSearch]);
 
     if (isLoading && !searchedGifs) return <div>Loading...</div>;
     if (error) return <div>Error: {error.toString()}</div>;

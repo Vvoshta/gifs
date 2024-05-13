@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useGetTrendingGifsQuery } from '../../store/api';
 import { StyledBox } from './style';
 import { Box, Grid } from '@mui/material';
@@ -19,9 +19,9 @@ const TrendsPage: React.FC = () => {
         }
     );
 
-    const loadMore = () => {
-        setOffset(offset + limit);
-    };
+    const loadMore = useCallback(() => {
+        setOffset((prev) => prev + limit);
+    }, []);
 
     if (isLoading && !trendingGifs) return <div>Loading...</div>;
     if (error) return <div>Error: {error.toString()}</div>;

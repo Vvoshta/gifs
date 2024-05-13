@@ -34,7 +34,7 @@ export const giphyApi = createApi({
             IGif[],
             { searchStr: string; limit: number; offset: number }
         >({
-            query: ({ searchStr, limit = 0, offset = 0 }) => ({
+            query: ({ searchStr, limit, offset }) => ({
                 url: `/search?api_key=${GIPHY_KEY}&q=${searchStr}&limit=${limit}&offset=${offset}`,
                 params: {
                     q: searchStr,
