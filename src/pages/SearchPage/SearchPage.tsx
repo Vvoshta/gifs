@@ -1,5 +1,3 @@
-// todo нужно сделать так, чтобы при 2ом и дальше вводе в строку обновлялись гифки
-
 import React, { ChangeEvent, useState, useEffect, useCallback } from 'react';
 import { TextField } from '@mui/material';
 import { StyledTextField } from './style';
@@ -10,21 +8,23 @@ import { useDebounce } from '../../hooks';
 
 const SearchPage: React.FC = () => {
     const [searchStr, setSearchStr] = useState('');
-    const limit = 9;
     const [offset, setOffset] = useState(0);
+    const limit = 9;
 
-    const debouncedSearch = useDebounce(searchStr, 500);
+    const debouncedValue = useDebounce(searchStr, 500);
 
     const {
         data: searchedGifs = [],
         error,
         isLoading
     } = useGetSearchedGifsQuery(
-        { searchStr: debouncedSearch, limit, offset },
-        {
-            refetchOnMountOrArgChange: true
-        }
+        { searchStr: debouncedValue, limit, offset },
+        { refetchOnMountOrArgChange: true, skip: !debouncedValue }
     );
+
+    useEffect(() => {
+        setOffset(0);
+    }, [debouncedValue]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -35,11 +35,7 @@ const SearchPage: React.FC = () => {
         setOffset((prev) => prev + limit);
     }, [limit]);
 
-    useEffect(() => {
-        setOffset(0);
-    }, [debouncedSearch]);
-
-    if (isLoading && !searchedGifs) return <div>Loading...</div>;
+    if (isLoading && searchedGifs.length === 0) return <div>Loading...</div>;
     if (error) return <div>Error: {error.toString()}</div>;
 
     return (

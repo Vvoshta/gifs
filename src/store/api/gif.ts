@@ -21,11 +21,7 @@ export const giphyApi = createApi({
                     ...existingData,
                     ...newData
                 ],
-                serializeQueryArgs: ({
-                    // queryArgs,
-                    // endpointDefinition,
-                    endpointName
-                }) => {
+                serializeQueryArgs: ({ endpointName }) => {
                     return endpointName;
                 }
             }
@@ -43,15 +39,13 @@ export const giphyApi = createApi({
                 }
             }),
             transformResponse: (response: { data: IGif[] }) => response.data,
-            merge: (existingData = [], newData) => [
-                ...existingData,
-                ...newData
-            ],
-            serializeQueryArgs: ({
-                // queryArgs,
-                // endpointDefinition,
-                endpointName
-            }) => {
+            merge: (existingData, newData, { arg: { offset } }) => {
+                if (offset === 0) {
+                    return newData;
+                }
+                return [...existingData, ...newData];
+            },
+            serializeQueryArgs: ({ endpointName }) => {
                 return endpointName;
             }
         })
