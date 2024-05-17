@@ -5,8 +5,9 @@ import { Box, Grid } from '@mui/material';
 import { GifItem, InfiniteScroll } from '../../components';
 
 const TrendsPage: React.FC = () => {
-    const limit = 9;
     const [offset, setOffset] = useState(0);
+    const limit = 9;
+
     const {
         data: trendingGifs = [],
         isLoading,

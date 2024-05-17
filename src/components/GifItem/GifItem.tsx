@@ -15,7 +15,7 @@ const GifItem: React.FC<GifItemProps> = ({ gifs }) => {
                     <Box sx={StyledBoxItem}>
                         <img
                             style={StyledImg}
-                            src={gif.images.fixed_height.url}
+                            src={gif.images.downsized.url}
                             alt={gif.title}
                         />
                     </Box>

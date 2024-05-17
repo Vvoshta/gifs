@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.scss';
 import { Buttons } from './components';
 import { Stack } from '@mui/material';
-import { SearchPage, TrendsPage } from './pages';
+import { SearchPage, TrendsPage, RandomPage } from './pages';
 
 function App() {
     return (
@@ -14,6 +14,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<TrendsPage />} />
                 <Route path="/search" element={<SearchPage />} />
+                <Route path="/random" element={<RandomPage />} />
             </Routes>
         </div>
     );
