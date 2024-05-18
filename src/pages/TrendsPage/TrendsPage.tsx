@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useGetTrendingGifsQuery } from '../../store/api';
 import { StyledBox } from './style';
-import { Box, Grid } from '@mui/material';
+import { Box, CircularProgress, Grid } from '@mui/material';
 import { GifItem, InfiniteScroll } from '../../components';
 
 const TrendsPage: React.FC = () => {
@@ -11,8 +11,7 @@ const TrendsPage: React.FC = () => {
     const {
         data: trendingGifs = [],
         isLoading,
-        error,
-        isFetching
+        error
     } = useGetTrendingGifsQuery(
         { limit, offset },
         {
@@ -30,10 +29,12 @@ const TrendsPage: React.FC = () => {
     return (
         <Box sx={StyledBox}>
             <Grid container spacing={2}>
-                <InfiniteScroll onLoadMore={loadMore}>
-                    <GifItem gifs={trendingGifs} />
-                    {isFetching && <div>Loading more...</div>}
-                </InfiniteScroll>
+                {isLoading && <CircularProgress />}
+                {!isLoading && (
+                    <InfiniteScroll onLoadMore={loadMore}>
+                        <GifItem gifs={trendingGifs} />
+                    </InfiniteScroll>
+                )}
             </Grid>
         </Box>
     );
