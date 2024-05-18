@@ -49,16 +49,12 @@ export const giphyApi = createApi({
                 return endpointName;
             }
         }),
-        getRandomGif: build.query<IGif, void>({
+        getRandomGif: build.query<IGif, number>({
             query: () => `/random?api_key=${GIPHY_KEY}`,
-            transformResponse: (response: { data: IGif }) => response.data
-            // merge: (existingData = [], newData) => [
-            //     ...existingData,
-            //     ...newData
-            // ],
-            // serializeQueryArgs: ({ endpointName }) => {
-            //     return endpointName;
-            // }
+            transformResponse: (response: { data: IGif }) => response.data,
+            serializeQueryArgs: ({ endpointName }) => {
+                return endpointName;
+            }
         })
     })
 });

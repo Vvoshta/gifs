@@ -35,6 +35,4 @@ export const StyledImg: React.CSSProperties = {
     marginBottom: '40px',
     maxHeight: '600px',
     maxWidth: '600px'
-    // overflow: 'hidden',
-    // objectFit: 'cover'
 };
