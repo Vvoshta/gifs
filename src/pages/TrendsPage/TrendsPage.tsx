@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useGetTrendingGifsQuery } from '../../store/api';
 import { StyledBox } from './style';
 import { Box, CircularProgress, Grid } from '@mui/material';
