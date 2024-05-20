@@ -39,7 +39,7 @@ const TrendsPage: React.FC = () => {
     return (
         <Box sx={StyledBox}>
             <Grid container spacing={2}>
-                {isLoading && offset > 0 && <CircularProgress />}
+                {isLoading && <CircularProgress />}
                 {!isLoading && (
                     <InfiniteScroll onLoadMore={loadMore}>
                         <GifItem gifs={trendingGifs} />
