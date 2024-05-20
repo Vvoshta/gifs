@@ -13,7 +13,7 @@ function App() {
             </Stack>
             <Routes>
                 <Route path="/" element={<TrendsPage />} />
-                <Route path="/gifs" element={<TrendsPage />} />
+                <Route path="/gifs/" element={<TrendsPage />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/random" element={<RandomPage />} />
             </Routes>
