@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useGetTrendingGifsQuery } from '../../store/api';
 import { StyledBox } from './style';
 import { Box, CircularProgress, Grid } from '@mui/material';
@@ -12,12 +12,22 @@ const TrendsPage: React.FC = () => {
         data: trendingGifs = [],
         isLoading,
         error
+        // refetch
     } = useGetTrendingGifsQuery(
         { limit, offset },
         {
             refetchOnMountOrArgChange: true
         }
     );
+
+    // useEffect(() => {
+    //     console.log('Trending Gifs:', trendingGifs);
+    //     console.log('Is Loading:', isLoading);
+    //     console.log('Error:', error);
+    //     if (offset === 0) {
+    //         refetch();
+    //     }
+    // }, [offset, refetch]);
 
     const loadMore = useCallback(() => {
         setOffset((prev) => prev + limit);
@@ -29,7 +39,7 @@ const TrendsPage: React.FC = () => {
     return (
         <Box sx={StyledBox}>
             <Grid container spacing={2}>
-                {isLoading && <CircularProgress />}
+                {isLoading && offset > 0 && <CircularProgress />}
                 {!isLoading && (
                     <InfiniteScroll onLoadMore={loadMore}>
                         <GifItem gifs={trendingGifs} />
