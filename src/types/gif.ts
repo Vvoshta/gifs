@@ -2,7 +2,7 @@ export interface IGif {
     id: string;
     title: string;
     images: {
-        fixed_height: {
+        downsized: {
             url: string;
         };
     };

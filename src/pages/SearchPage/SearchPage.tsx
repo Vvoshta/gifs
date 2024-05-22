@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useEffect, useCallback } from 'react';
-import { TextField } from '@mui/material';
+import { CircularProgress, TextField } from '@mui/material';
 import { StyledTextField } from './style';
 import { useGetSearchedGifsQuery } from '../../store/api';
 import InfiniteScroll from '../../components/InfiniteScroll/InfiniteScroll';
@@ -35,7 +35,6 @@ const SearchPage: React.FC = () => {
         setOffset((prev) => prev + limit);
     }, [limit]);
 
-    if (isLoading && searchedGifs.length === 0) return <div>Loading...</div>;
     if (error) return <div>Error: {error.toString()}</div>;
 
     return (
@@ -45,9 +44,12 @@ const SearchPage: React.FC = () => {
                 value={searchStr}
                 onChange={handleChange}
             />
-            <InfiniteScroll onLoadMore={loadMore}>
-                <GifItem gifs={searchedGifs} />
-            </InfiniteScroll>
+            {isLoading && <CircularProgress />}
+            {!isLoading && (
+                <InfiniteScroll onLoadMore={loadMore}>
+                    <GifItem gifs={searchedGifs} />
+                </InfiniteScroll>
+            )}
         </div>
     );
 };

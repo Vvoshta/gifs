@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid } from '@mui/material';
 import { StyledBoxItem, StyledImg } from './style';
-import { IGif } from '../../types';
+import { IGif } from '../../types/gif';
 
 interface GifItemProps {
     gifs: IGif[];
@@ -15,7 +15,7 @@ const GifItem: React.FC<GifItemProps> = ({ gifs }) => {
                     <Box sx={StyledBoxItem}>
                         <img
                             style={StyledImg}
-                            src={gif.images.fixed_height.url}
+                            src={gif.images.downsized.url}
                             alt={gif.title}
                         />
                     </Box>
