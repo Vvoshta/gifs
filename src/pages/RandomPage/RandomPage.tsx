@@ -8,13 +8,13 @@ const RandomPage: React.FC = () => {
     const [trigger, { data: randomGif, error, isFetching }] =
         useLazyGetRandomGifQuery();
 
-    const handleChange = useCallback(async () => {
-        await trigger();
+    const handleChange = useCallback(() => {
+        trigger();
     }, [trigger]);
 
     useEffect(() => {
         trigger();
-    }, [trigger]);
+    }, []);
 
     if (error) return <div>Error: {error.toString()}</div>;
 
