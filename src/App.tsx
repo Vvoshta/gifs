@@ -16,6 +16,7 @@ function App() {
                 <Route path="/gifs/" element={<TrendsPage />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/random" element={<RandomPage />} />
+                {/*<Route path="/settings" element={<SettingsPage />} />*/}
             </Routes>
         </div>
     );

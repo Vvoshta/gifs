@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { StyledButton } from './style';
+import { StyledButton, SettingsStyledButton } from './style';
 
 const Buttons: React.FC = () => {
     return (
@@ -16,9 +16,9 @@ const Buttons: React.FC = () => {
             <Link to="/random">
                 <Button sx={StyledButton}>Random</Button>
             </Link>
-            {/*<Link to="/settings">*/}
-            {/*    <Button sx={SettingsStyledButton}>Settings</Button>*/}
-            {/*</Link>*/}
+            <Link to="/settings">
+                <Button sx={SettingsStyledButton}>Settings</Button>
+            </Link>
         </Stack>
     );
 };

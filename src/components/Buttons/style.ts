@@ -8,6 +8,7 @@ export const StyledButton: SxProps = {
     backgroundColor: blue[500],
     color: 'white',
     fontWeight: 'bold',
+    border: '1px solid transparent',
     boxShadow:
         'rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px',
     '&:hover, &:focus': {
@@ -22,6 +23,7 @@ export const StyledButton: SxProps = {
 };
 
 export const SettingsStyledButton: SxProps = {
+    ...StyledButton,
     backgroundColor: grey[300],
     color: blue[500],
     '&:hover, &:focus': {
