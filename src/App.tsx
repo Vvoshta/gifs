@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.scss';
 import { Buttons } from './components';
 import { Stack } from '@mui/material';
-import { SearchPage, TrendsPage, RandomPage } from './pages';
+import { SearchPage, TrendsPage, RandomPage, SettingsPage } from './pages';
 
 function App() {
     return (
@@ -16,7 +16,7 @@ function App() {
                 <Route path="/gifs/" element={<TrendsPage />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/random" element={<RandomPage />} />
-                {/*<Route path="/settings" element={<SettingsPage />} />*/}
+                <Route path="/settings" element={<SettingsPage />} />
             </Routes>
         </div>
     );
