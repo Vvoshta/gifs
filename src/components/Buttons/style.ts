@@ -5,6 +5,7 @@ export const StyledButton: SxProps = {
     minWidth: '64px',
     padding: '6px 16px',
     letterSpacing: '0',
+    zIndex: '1',
     backgroundColor: blue[500],
     color: 'white',
     fontWeight: 'bold',
