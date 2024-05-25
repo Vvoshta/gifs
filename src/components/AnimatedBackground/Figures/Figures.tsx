@@ -4,8 +4,8 @@ import './style.scss';
 const Figures = () => {
     return (
         <div>
-            <div className="area">
-                <ul className="circles">
+            <div className="container">
+                <ul className="figures">
                     <li></li>
                     <li></li>
                     <li></li>
