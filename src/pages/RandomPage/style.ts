@@ -1,15 +1,21 @@
 import { SxProps } from '@mui/material';
-import { blue, grey, cyan } from '@mui/material/colors';
+import React from 'react';
+import { blue } from '@mui/material/colors';
+
+export const StyledStack: SxProps = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: '40px'
+};
 
 export const StyledButton: SxProps = {
     minWidth: '64px',
-    padding: '6px 16px',
+    padding: '8px 22px',
     letterSpacing: '0',
-    zIndex: '1',
     backgroundColor: blue[500],
     color: 'white',
     fontWeight: 'bold',
-    border: '1px solid transparent',
     boxShadow:
         'rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px',
     '&:hover, &:focus': {
@@ -23,14 +29,10 @@ export const StyledButton: SxProps = {
     }
 };
 
-export const SettingsStyledButton: SxProps = {
-    ...StyledButton,
-    backgroundColor: grey[300],
-    color: blue[500],
-    '&:hover, &:focus': {
-        backgroundColor: cyan[300]
-    },
-    '&:active': {
-        backgroundColor: blue[500]
-    }
+export const StyledImg: React.CSSProperties = {
+    borderRadius: '8px',
+    marginTop: '40px',
+    marginBottom: '40px',
+    maxHeight: '600px',
+    maxWidth: '600px'
 };

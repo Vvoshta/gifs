@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useGetTrendingGifsQuery } from '../../store/api';
 import { StyledBox } from './style';
-import { Box, Grid } from '@mui/material';
-import { IGif } from '../../types';
+import { Box, CircularProgress, Grid } from '@mui/material';
 import { GifItem, InfiniteScroll } from '../../components';
 
 const TrendsPage: React.FC = () => {
-    const limit = 9;
     const [offset, setOffset] = useState(0);
+    const limit = 9;
+
     const {
-        data: trendingGifs,
+        data: trendingGifs = [],
         isLoading,
         error,
-        isFetching
+        refetch
     } = useGetTrendingGifsQuery(
         { limit, offset },
         {
@@ -20,9 +20,18 @@ const TrendsPage: React.FC = () => {
         }
     );
 
-    const loadMore = () => {
-        setOffset(offset + limit);
-    };
+    useEffect(() => {
+        console.log('Trending Gifs:', trendingGifs);
+        console.log('Is Loading:', isLoading);
+        console.log('Error:', error);
+        if (offset === 0) {
+            refetch();
+        }
+    }, [offset, refetch]);
+
+    const loadMore = useCallback(() => {
+        setOffset((prev) => prev + limit);
+    }, []);
 
     if (isLoading && !trendingGifs) return <div>Loading...</div>;
     if (error) return <div>Error: {error.toString()}</div>;
@@ -30,15 +39,12 @@ const TrendsPage: React.FC = () => {
     return (
         <Box sx={StyledBox}>
             <Grid container spacing={2}>
-                <InfiniteScroll onLoadMore={loadMore}>
-                    <Grid container spacing={2}>
-                        {trendingGifs &&
-                            trendingGifs.map((gif: IGif) => (
-                                <GifItem key={gif.id} gif={gif} />
-                            ))}
-                        {isFetching && <div>Loading more...</div>}
-                    </Grid>
-                </InfiniteScroll>
+                {isLoading && <CircularProgress />}
+                {!isLoading && (
+                    <InfiniteScroll onLoadMore={loadMore}>
+                        <GifItem gifs={trendingGifs} />
+                    </InfiniteScroll>
+                )}
             </Grid>
         </Box>
     );
