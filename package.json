@@ -1,0 +1,76 @@
+{
+    "name": "gifs",
+    "homepage": "https://vvoshta.github.io/gifs",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@mui/icons-material": "^5.15.18",
+        "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+        "@reduxjs/toolkit": "^2.2.3",
+        "@testing-library/jest-dom": "^5.17.0",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "node-fetch": "^3.3.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-query": "^3.39.3",
+        "react-redux": "^9.1.1",
+        "react-router-dom": "^6.23.1",
+        "react-scripts": "5.0.1",
+        "styled-components": "^6.1.8"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "lint": "eslint ."
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@emotion/react": "^11.11.4",
+        "@emotion/styled": "^11.11.5",
+        "@eslint/js": "^9.0.0",
+        "@mui/material": "^5.15.18",
+        "@types/jest": "^29.5.12",
+        "@types/node": "^20.12.12",
+        "@types/react": "^18.3.2",
+        "@types/react-dom": "^18.3.0",
+        "@typescript-eslint/eslint-plugin": "^7.7.0",
+        "@typescript-eslint/parser": "^7.7.0",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "eslint-plugin-react": "^7.34.1",
+        "gh-pages": "^6.1.1",
+        "globals": "^15.0.0",
+        "prettier": "3.2.5",
+        "sass": "^1.75.0",
+        "typescript": "^5.4.5",
+        "typescript-eslint": "^7.7.0"
+    },
+    "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+    "main": "index.tsx",
+    "author": "",
+    "license": "ISC"
+}
